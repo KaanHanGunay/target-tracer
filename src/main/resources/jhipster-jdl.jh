@@ -1,0 +1,27 @@
+entity Target {
+	name String
+    successCount Integer
+    dayCount Integer
+}
+
+entity TargetLogs {
+	day LocalDate
+    isSuccess Boolean
+}
+
+relationship ManyToOne {
+    Target{user} to User
+    TargetLogs{target} to Target
+}
+
+// Set pagination options
+paginate TargetLogs with pagination
+
+// Use Data Transfert Objects (DTO)
+dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceImpl
+
+// Set an angular suffix
+angularSuffix * with tt

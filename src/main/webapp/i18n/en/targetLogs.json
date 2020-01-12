@@ -1,0 +1,24 @@
+{
+  "targettracerApp": {
+    "targetLogs": {
+      "home": {
+        "title": "Target Logs",
+        "createLabel": "Create a new Target Logs",
+        "createOrEditLabel": "Create or edit a Target Logs",
+        "notFound": "No Target Logs found"
+      },
+      "created": "A new Target Logs is created with identifier {{ param }}",
+      "updated": "A Target Logs is updated with identifier {{ param }}",
+      "deleted": "A Target Logs is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Target Logs {{ id }}?"
+      },
+      "detail": {
+        "title": "Target Logs"
+      },
+      "day": "Day",
+      "isSuccess": "Is Success",
+      "target": "Target"
+    }
+  }
+}

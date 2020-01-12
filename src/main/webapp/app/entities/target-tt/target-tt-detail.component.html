@@ -1,0 +1,39 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="target">
+            <h2><span jhiTranslate="targettracerApp.target.detail.title">Target</span> {{target.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="targettracerApp.target.name">Name</span></dt>
+                <dd>
+                    <span>{{target.name}}</span>
+                </dd>
+                <dt><span jhiTranslate="targettracerApp.target.successCount">Success Count</span></dt>
+                <dd>
+                    <span>{{target.successCount}}</span>
+                </dd>
+                <dt><span jhiTranslate="targettracerApp.target.dayCount">Day Count</span></dt>
+                <dd>
+                    <span>{{target.dayCount}}</span>
+                </dd>
+                <dt><span jhiTranslate="targettracerApp.target.user">User</span></dt>
+                <dd>
+                    {{target.userId}}
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/target-tt', target.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

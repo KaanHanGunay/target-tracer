@@ -1,0 +1,34 @@
+{
+    "name": "TargetLogs",
+    "fields": [
+        {
+            "fieldName": "day",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "isSuccess",
+            "fieldType": "Boolean"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "target",
+            "otherEntityRelationshipName": "targetLogs",
+            "relationshipName": "target",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20200112171850",
+    "entityTableName": "target_logs",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "clientRootFolder": "",
+    "applications": "*",
+    "angularJSSuffix": "tt",
+    "enableEntityAudit": true
+}
