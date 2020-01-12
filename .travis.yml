@@ -4,12 +4,12 @@ services:
   - docker
 language: node_js
 node_js:
-  - '12.13.1'
+  - 12.13.1
 cache:
   directories:
     - node
     - node_modules
-    - $HOME/.m2
+    - '$HOME/.m2'
 env:
   global:
     - NODE_VERSION=12.13.1
@@ -18,6 +18,7 @@ env:
     - JHI_DISABLE_WEBPACK_LOGS=true
     - NG_CLI_ANALYTICS="false"
     - MAVEN_USER_HOME=$HOME/.m2/repository/
+    - secure: q2UPdnDL1wR8hF7vNXpdUBZPnFSR5qBgH9q73gif43t9eXJcSTLxV5GaIlNPoai018BcSYdhOYYHpjbuGx1RU2QUVwB83cBJGKy/P5YziLme/KivKwMLsswgN77M0bvPvqcIaPAmNMCVACWQ3m/OmztC/vb/lZmjJ4lraF37MyA7532BaH/h9x5szsPFpV9z0KRl/WmafMqp+Zf2VCH3fluOOFsUEo01wtxpQo0e5N+ZBJ1R4OduNY0SNQs+di4z6SW/kp3XhAsnvlydTj5+E1hjlms7ohcl3YijlUgKGMRLqmqnsjsHae99jH3stBr/BRiBfIxI/CsLunEaTIC2nB753hLyfy0DnzrM9GWGTZIDx6pMcymhpEb4WIuxVVfN0c5V8K1KiCnEL+geLiTsMyGrNM0HIFHKte1Q5tlgJnTyBzybI3RuARkNQ1f1EHmywA2mYnLP/ffeiLFClT2adFEyO5ehIA89kXxlXSthQlIuvNkZ/SXaTlDc875qKyXy+j9ArJre3ye63eD+ziddzBg7uab+ckgU01aomUDbAD9JWAWrpd74D06W1HWNDoxti2K5ELY/r0/eCKRgiT3gu4I6qu3fbNyahHv8H173ijWYqzKtwkCJKxD0LB+9WQGpReh+C5MEUQsdRADGI2NjshdjygFi1SyJjcMR6A7BacI=
 before_install:
   - |
     if [[ $JHI_JDK = '8' ]]; then
@@ -41,12 +42,16 @@ install:
   - npm install
 script:
   - chmod +x mvnw
-  - ./mvnw -ntp checkstyle:check
-  - ./mvnw -ntp clean verify
-  - ./mvnw -ntp com.github.eirslett:frontend-maven-plugin:npm -Dfrontend.npm.arguments='run test' -Dmaven.repo.local=$MAVEN_USER_HOME
-  - ./mvnw -ntp verify -Pprod -DskipTests
+  - './mvnw -ntp checkstyle:check'
+  - './mvnw -ntp clean verify'
+  - "./mvnw -ntp com.github.eirslett:frontend-maven-plugin:npm -Dfrontend.npm.arguments='run
+    test' -Dmaven.repo.local=$MAVEN_USER_HOME"
+  - if [ $TRAVIS_PULL_REQUEST == "false" ]; then ./mvnw -ntp org.jacoco:jacoco-maven-plugin:prepare-agent
+    initialize sonar:sonar -Dsonar.organization=kaanhgunay -Dsonar.host.url=https://sonarcloud.io
+    -Dsonar.login=$SONAR_TOKEN; fi
+  - './mvnw -ntp verify -Pprod -DskipTests'
 notifications:
   webhooks:
-    on_success: change # options: [always|never|change] default: always
-    on_failure: always # options: [always|never|change] default: always
-    on_start: false # default: false
+    on_success: change
+    on_failure: always
+    on_start: false
