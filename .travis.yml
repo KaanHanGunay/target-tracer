@@ -18,7 +18,11 @@ env:
     - JHI_DISABLE_WEBPACK_LOGS=true
     - NG_CLI_ANALYTICS="false"
     - MAVEN_USER_HOME=$HOME/.m2/repository/
-    - secure: q2UPdnDL1wR8hF7vNXpdUBZPnFSR5qBgH9q73gif43t9eXJcSTLxV5GaIlNPoai018BcSYdhOYYHpjbuGx1RU2QUVwB83cBJGKy/P5YziLme/KivKwMLsswgN77M0bvPvqcIaPAmNMCVACWQ3m/OmztC/vb/lZmjJ4lraF37MyA7532BaH/h9x5szsPFpV9z0KRl/WmafMqp+Zf2VCH3fluOOFsUEo01wtxpQo0e5N+ZBJ1R4OduNY0SNQs+di4z6SW/kp3XhAsnvlydTj5+E1hjlms7ohcl3YijlUgKGMRLqmqnsjsHae99jH3stBr/BRiBfIxI/CsLunEaTIC2nB753hLyfy0DnzrM9GWGTZIDx6pMcymhpEb4WIuxVVfN0c5V8K1KiCnEL+geLiTsMyGrNM0HIFHKte1Q5tlgJnTyBzybI3RuARkNQ1f1EHmywA2mYnLP/ffeiLFClT2adFEyO5ehIA89kXxlXSthQlIuvNkZ/SXaTlDc875qKyXy+j9ArJre3ye63eD+ziddzBg7uab+ckgU01aomUDbAD9JWAWrpd74D06W1HWNDoxti2K5ELY/r0/eCKRgiT3gu4I6qu3fbNyahHv8H173ijWYqzKtwkCJKxD0LB+9WQGpReh+C5MEUQsdRADGI2NjshdjygFi1SyJjcMR6A7BacI=
+addons:
+  sonarcloud:
+    organization: 'kaanhgunay'
+    token:
+      secure: 'xd8Q+vqIQEZnJpd8S9NIERzBoooOQFWAVT4D2RRNSZ21KU6XoHNBJqTft7dRkGJIyZxYCMvrRh9PObb9jd4kv8DMrPRy9l4ND+HMLEt7leW0CyMlVaxNGrKs7zTjOwEqlVorwfpVoYinViH9BInTAt1ZxKQAIRE4LmQ44ByY1YcwVl9sOB1AlThbO/mmcH2u28/vxn0rDWFU/xwdiCBwjKijkqhDuAH6Jc1ZytPlM+B33c7pnEkJDcfYoagGy1+6ZMLTVqGS1vG+L92V1A6Ron3QQXyaWGRTKSjHMpMeU8J009qcv6xq+YmLn5ZN+d26gb1CI6l4TGAp4/r6ZpNZa2P5YTnB9R4odACxewvvfqcjbg1mQ/yTpnr0C3nO2K/bGfYDabUWGOFE0k0zAj3iUL+9ulUe19N3rxdsOT2cdDR4gVLGN5ATMVQF3ZOE7cbhhaAaLCu4B1ZWh8RAO+t+nyPvyXVtWCQ3T+CtSqxVwQFX+h6FLfFBR2S9usNKBl/r6R0/LVREBGLxYO06ztek3AT4Lf5ZqHjKsIkL8GAkwLdjS1ei8g1fQTApLwY6e4l8UOTpqKh9+fHDfXrAWVXvxFjrptoDdeNI6tadPr1SIufJKTWTl8ytucX1iOCionl3yjC8Lccj5aE53ppu/K3ReuEiMXjtFg/+tNsj7Xroa7Y='
 before_install:
   - |
     if [[ $JHI_JDK = '8' ]]; then
@@ -46,9 +50,7 @@ script:
   - './mvnw -ntp clean verify'
   - "./mvnw -ntp com.github.eirslett:frontend-maven-plugin:npm -Dfrontend.npm.arguments='run
     test' -Dmaven.repo.local=$MAVEN_USER_HOME"
-  - if [ $TRAVIS_PULL_REQUEST == "false" ]; then ./mvnw -ntp org.jacoco:jacoco-maven-plugin:prepare-agent
-    initialize sonar:sonar -Dsonar.organization=kaanhgunay -Dsonar.host.url=https://sonarcloud.io
-    -Dsonar.login=$SONAR_TOKEN; fi
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=KaanHGunay_target-tracer
   - './mvnw -ntp verify -Pprod -DskipTests'
 notifications:
   webhooks:
