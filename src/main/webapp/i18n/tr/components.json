@@ -1,0 +1,12 @@
+{
+  "targettracerApp": {
+    "components": {
+      "query-tab": {
+        "title": "Tab Menü"
+      },
+      "second-router": {
+        "title": "İkinci Router"
+      }
+    }
+  }
+}

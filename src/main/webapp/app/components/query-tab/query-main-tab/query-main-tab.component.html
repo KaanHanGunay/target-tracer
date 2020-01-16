@@ -1,0 +1,30 @@
+<div class="col-sm-5 form-group-lg jumbotron">
+
+    <mat-card>
+
+        <!-- Component içeriği -->
+        <mat-card-content>
+
+            <form [formGroup]="queryForm" [style.fontSize.px]="13">
+
+                <!-- Parametre ALanı -->
+                <mat-form-field class="full-width-table" appearance="outline">
+                    <input formControlName="parameter" matInput type="text" placeholder="Parametre">
+                </mat-form-field>
+
+            </form>
+
+            <!-- Sorgulama butonu -->
+            <button
+                [disabled]="queryForm.invalid && queryForm.touched"
+                mat-raised-button
+                color="primary"
+                class="full-width-table"
+                style="margin: 0 10px 10px 0"
+                (click)="onClick()">
+                Sorgula
+            </button>
+
+        </mat-card-content>
+    </mat-card>
+</div>

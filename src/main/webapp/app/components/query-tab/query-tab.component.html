@@ -1,0 +1,18 @@
+<div class="container-fluid">
+    <h1 jhiTranslate="targettracerApp.components.query-tab.title">Inspection</h1>
+    <mat-tab-group
+        class="main-tab-group mt-2"
+        [selectedIndex]="selectedTab">
+        <mat-tab *ngFor="let tab of tabs; let tabIndex = index">
+            <ng-template mat-tab-label>{{ tab.title }}
+
+                <!-- Sorgulama tabının kapatılamaması amacıyla kontrol eklenmiştir. -->
+                <i *ngIf="tabIndex !== 0" class="material-icons" (click)="removeTab(tabIndex)">close</i>
+
+            </ng-template>
+            <div>
+                <jhi-tab-content [tab]="tab"></jhi-tab-content>
+            </div>
+        </mat-tab>
+    </mat-tab-group>
+</div>
